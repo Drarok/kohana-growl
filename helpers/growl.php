@@ -1,14 +1,7 @@
 <?php
 
-$_growl_vendor = Kohana::find_file('vendor', 'Growl');
-
-if (! (bool) $_growl_vendor)
-	throw new Exception('Failed to find Growl.php in vendor.');
-
-require_once($_growl_vendor);
-
-// Don't pollute the global variable space.
-unset($_growl_vendor);
+// Automatically include the Growl reference classes.
+require_once(Kohana::find_file('vendor', 'Growl', TRUE));
 
 abstract class growl_Core {
 	// Cache the connections.
