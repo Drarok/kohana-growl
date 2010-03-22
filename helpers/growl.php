@@ -17,7 +17,7 @@ abstract class growl_Core {
 			$p->addNotification($name, $enabled);
 		}
 
-		self::send($host_alias, $p->payload());
+		growl::send($host_alias, $p->payload());
 	}
 
 	public static function notify($name, $title, $description, $host_alias = 'default') {
@@ -27,13 +27,13 @@ abstract class growl_Core {
 			Kohana::config('growl.hosts.'.$host_alias.'.password')
 		);
 
-		self::send($host_alias, $p->payload());
+		growl::send($host_alias, $p->payload());
 	}
 
 	protected static function send($host_alias, $payload) {
 		// If the socket isn't cached, create it.
-		if (! array_key_exists($host_alias, self::$sockets)) {
-			self::$sockets[$host_alias] = $s = socket_create(
+		if (! array_key_exists($host_alias, growl::$sockets)) {
+			growl::$sockets[$host_alias] = $s = socket_create(
 				AF_INET,
 				SOCK_DGRAM,
 				SOL_UDP
@@ -44,7 +44,7 @@ abstract class growl_Core {
 		}
 
 		socket_sendto(
-			self::$sockets[$host_alias],
+			growl::$sockets[$host_alias],
 			$payload, strlen($payload),
 			0,
 			Kohana::config('growl.hosts.'.$host_alias.'.host'),
