@@ -16,5 +16,9 @@ $config = array(
 	// Notification name => enabled_by_default.
 	'notifications' => array(
 		'default' => TRUE,
+		'error' => TRUE,
+		'warning' => TRUE,
+		'info' => TRUE,
+		'debug' => FALSE,
 	),
 );
